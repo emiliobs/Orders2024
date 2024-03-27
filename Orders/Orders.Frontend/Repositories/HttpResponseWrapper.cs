@@ -39,6 +39,11 @@ namespace Orders.Frontend.Repositories
                 return "Tienes que esta Logiado para ejecutar esta Operacion.";
             }
 
+            if (statusCode == HttpStatusCode.Forbidden)
+            {
+                return "No tienes permisos para hacer esta operacíon.";
+            }
+
             return "Ha ucurrido un Error inesperado!";
         }
     }
