@@ -1,2 +1,14 @@
-﻿<h3>CountryForm</h3>
+﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+<EditForm EditContext="editContext" OnInvalidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="mb-3">
+        <label>País:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Country.Name"></InputText>
+            <ValidationMessage For="@(() => Country.Name)"></ValidationMessage>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Guardar Cambio.</button>
+    <button class="btn btn-success" @onclick="ReturnAction">Regresar.</button>
+</EditForm>
 
