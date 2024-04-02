@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
+using System.Net;
 
 namespace Orders.Frontend.Pages.Countries
 {
@@ -34,5 +35,52 @@ namespace Orders.Frontend.Pages.Countries
             }
             Countries = responseHttp.Response;
         }
+
+        private async Task DeleteAsync(Country country)
+        {
+            var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmatión",
+                Text = $"Estas seguro de querer borrar el país: {country.Name}?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true,
+            });
+
+            var confirm = string.IsNullOrEmpty(result.Value);
+            if (confirm)
+            {
+                return;
+            }
+
+            var responseHttp = await repository.DeleteAsync<Country>($"/api/countries/{country.Id}");
+            if (responseHttp.Error)
+            {
+                if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                {
+                    NavigationManager.NavigateTo("/countries");
+                }
+                else
+                {
+                    var messageError = await responseHttp.GetErrorMessageAsync();
+                    await sweetAlertService.FireAsync("Error", messageError, SweetAlertIcon.Error);
+                }
+
+                return;
+            }
+
+            await LoadAsync();
+
+            var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro borrado con éxito.");
+
+        }
+
     }
 }
