@@ -28,7 +28,7 @@ namespace Orders.Frontend.Repositories
 
             if (statusCode == HttpStatusCode.NotFound)
             {
-                return "Recuso no Encontrado!";
+                return "Recurso no Encontrado!";
             }
 
             if (statusCode == HttpStatusCode.BadRequest)
@@ -46,7 +46,7 @@ namespace Orders.Frontend.Repositories
                 return "No tienes permisos para hacer esta operacíon.";
             }
 
-            return "Ha ucurrido un Error inesperado!";
+            return "Ha ocurrido un Error inesperado!";
         }
     }
 }

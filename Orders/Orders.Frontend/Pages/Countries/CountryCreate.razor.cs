@@ -4,6 +4,7 @@ using CurrieTechnologies.Razor.SweetAlert2;
 // Importing the ComponentBase class from the Microsoft.AspNetCore.Components namespace
 using Microsoft.AspNetCore.Components;
 
+
 // Importing the IRepository and Country classes from respective namespaces
 using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
@@ -26,11 +27,12 @@ namespace Orders.Frontend.Pages.Countries
 
         // Declaring a public property 'SweetAlertService' of type SweetAlertService and injecting it
         [Inject]
-        public SweetAlertService SweetAlertService { get; set; } = null!;
+        public SweetAlertService SweetAlertService { get; set; } = null;
 
         // Declaring a public property 'NavigationManager' of type NavigationManager and injecting it
         [Inject]
         public NavigationManager NavigationManager { get; set; } = null!;
+
 
         // Declaring a private asynchronous method 'CreateAsync'
         private async Task CreateAsync()
@@ -43,13 +45,22 @@ namespace Orders.Frontend.Pages.Countries
                 // Retrieving the error message
                 var message = await responseHttp.GetErrorMessageAsync();
                 // Displaying a SweetAlert modal with the error message
-                await SweetAlertService.FireAsync("Error", message);
+                await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
                 // Exiting the method
                 return;
             }
 
             // Invoking the 'Return' method
             Return();
+
+            var toast = SweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito.");
         }
 
         // Declaring a private method 'Return'
