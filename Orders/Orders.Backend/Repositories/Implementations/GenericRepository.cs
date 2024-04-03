@@ -40,7 +40,35 @@ namespace Orders.Backend.Repositories.Implementations
 
         public async Task<ActionsResponse<T>> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var row = await _context.FindAsync<T>(id);
+            if (row == null)
+            {
+                return new ActionsResponse<T>
+                {
+                    WasSuccess = false,
+                    Message = "Registro no encontrado."
+                };
+            }
+
+            try
+            {
+                _entity.Remove(row);
+                await _context.SaveChangesAsync();
+                return new ActionsResponse<T>
+                {
+                    WasSuccess = true,
+                    //Result = row
+                };
+            }
+            catch
+            {
+
+                return new ActionsResponse<T>
+                {
+                    WasSuccess = false,
+                    Message = "Sorry!. No se puede borrar, por que existen registros relacionados."
+                };
+            }
         }
 
         public async Task<ActionsResponse<T>> GetAsync(int id)
