@@ -26,22 +26,22 @@ namespace Orders.Frontend.Pages.Countries
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHTTP = await repository.GetAsync<Country>($"/api/countries/{Id}");
-            if (responseHTTP.Error)
+            var responseHttp = await repository.GetAsync<Country>($"/countries/edit/{Id}");
+            if (responseHttp.Error)
             {
-                if (responseHTTP.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
                     navigationManager.NavigateTo("/countries");
                 }
                 else
                 {
-                    var message = await responseHTTP.GetErrorMessageAsync();
-                    await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                    var messsage = await responseHttp.GetErrorMessageAsync();
+                    await sweetAlertService.FireAsync("Error", messsage, SweetAlertIcon.Error);
                 }
             }
             else
             {
-                country = responseHTTP.Response;
+                country = responseHttp.Response;
             }
         }
 

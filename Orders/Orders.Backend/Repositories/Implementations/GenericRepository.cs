@@ -18,7 +18,7 @@ namespace Orders.Backend.Repositories.Implementations
 
         public async Task<ActionsResponse<T>> AddAsync(T entity)
         {
-            _context.Add(entity);
+            _entity.Add(entity);
             try
             {
                 await _context.SaveChangesAsync();
@@ -62,7 +62,6 @@ namespace Orders.Backend.Repositories.Implementations
             }
             catch
             {
-
                 return new ActionsResponse<T>
                 {
                     WasSuccess = false,
@@ -73,17 +72,52 @@ namespace Orders.Backend.Repositories.Implementations
 
         public async Task<ActionsResponse<T>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            var row = await _entity.FindAsync(id);
+            if (row is null)
+            {
+                return new ActionsResponse<T>
+                {
+                    WasSuccess = false,
+                    Message = "Registro no encontrado."
+                };
+            }
+
+            return new ActionsResponse<T>
+            {
+                WasSuccess = true,
+                Result = row,
+            };
         }
 
         public async Task<ActionsResponse<IEnumerable<T>>> GetAsync()
         {
-            throw new NotImplementedException();
+            return new ActionsResponse<IEnumerable<T>>
+            {
+                WasSuccess = true,
+                Result = await _entity.ToListAsync(),
+            };
         }
 
         public async Task<ActionsResponse<T>> UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            try
+            {
+                await _context.SaveChangesAsync();
+                return new ActionsResponse<T>
+                {
+                    WasSuccess = true,
+                    Result = entity,
+                };
+            }
+            catch (DbUpdateException)
+            {
+                return DbUpdateExceptionActionResponse();
+            }
+            catch (Exception exception)
+            {
+                return ExceptionActionResult(exception);
+            }
         }
 
         private ActionsResponse<T> DbUpdateExceptionActionResponse()
