@@ -26,7 +26,7 @@ namespace Orders.Frontend.Pages.Countries
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await repository.GetAsync<Country>($"/countries/edit/{Id}");
+            var responseHttp = await repository.GetAsync<Country>($"/api/Countries/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
