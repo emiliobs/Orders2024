@@ -24,7 +24,7 @@ namespace Orders.Backend.Controllers
             return BadRequest();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public virtual async Task<IActionResult> GetAsync(int id)
         {
             var action = await _unitOfWork.GetAsync(id);
