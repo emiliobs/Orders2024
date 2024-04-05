@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 // Importing the IRepository and Country classes from respective namespaces
 using Orders.Frontend.Repositories;
+using Orders.Frontend.Shared;
 using Orders.Shared.Entities;
 
 // Declaring a namespace for the CountryCreate class within the Orders.Frontend.Pages.Countries namespace
@@ -19,7 +20,7 @@ namespace Orders.Frontend.Pages.Countries
         private Country country = new Country();
 
         // Declaring a private instance variable 'countryForm' of type CountryForm
-        private CountryForm countryForm;
+        private FormWithName<Country> countryForm;
 
         // Declaring a public property 'Repository' of type IRepository and injecting it
         [Inject]

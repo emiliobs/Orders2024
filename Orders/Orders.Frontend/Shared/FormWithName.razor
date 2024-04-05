@@ -1,14 +1,20 @@
-﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+﻿@typeparam TModel where TModel : IEntityWithName
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <div class="mb-3">
-        <label>País:</label>
+        <label>@Label:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Country.Name"></InputText>
-            <ValidationMessage For="@(() => Country.Name)"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="@Model.Name"></InputText>
+            <ValidationMessage For="@(() => Model.Name)"></ValidationMessage>
         </div>
     </div>
     <button class="btn btn-primary" type="submit">Guardar Cambio.</button>
     <button class="btn btn-success" @onclick="ReturnAction">Regresar.</button>
 </EditForm>
+
+
+
 

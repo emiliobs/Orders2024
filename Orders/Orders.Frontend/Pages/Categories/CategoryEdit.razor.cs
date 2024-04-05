@@ -1,6 +1,7 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
+using Orders.Frontend.Shared;
 using Orders.Shared.Entities;
 using System.Net;
 
@@ -10,7 +11,7 @@ namespace Orders.Frontend.Pages.Categories
     {
         private Category? category;
 
-        private CategoryForm? categoryForm;
+        private FormWithName<Category>? categoryForm;
 
         [Inject]
         private IRepository repository { get; set; } = null!;

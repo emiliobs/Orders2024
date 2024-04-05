@@ -1,6 +1,7 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
+using Orders.Frontend.Shared;
 using Orders.Shared.Entities;
 
 namespace Orders.Frontend.Pages.Categories
@@ -11,7 +12,7 @@ namespace Orders.Frontend.Pages.Categories
         private Category category = new Category();
 
         // Declaring a private instance variable 'countryForm' of type CountryForm
-        private CategoryForm categoryForm;
+        private FormWithName<Category>? categoryForm;
 
         // Declaring a public property 'Repository' of type IRepository and injecting it
         [Inject]

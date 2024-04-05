@@ -1,19 +1,22 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components;
-using Orders.Shared.Entities;
+using Orders.Shared.Interfaces;
 
-namespace Orders.Frontend.Pages.Categories
+namespace Orders.Frontend.Shared
 {
-    public partial class CategoryForm
+    public partial class FormWithName<TModel> where TModel : IEntityWithName
     {
         // Declaring a private instance variable 'editContext' of type EditContext and initializing it to null
         private EditContext editContext = null!;
 
         // Declaring a public property 'Country' of type Country and marking it as a required parameter
         [EditorRequired, Parameter]
-        public Category Category { get; set; } = null!;
+        public TModel Model { get; set; } = default!;
+
+        [EditorRequired, Parameter]
+        public String Label { get; set; } = null!;
 
         // Declaring a public property 'OnValidSubmit' of type EventCallback and marking it as a required parameter
         [EditorRequired, Parameter]
@@ -32,7 +35,7 @@ namespace Orders.Frontend.Pages.Categories
 
         protected override void OnInitialized()
         {
-            editContext = new(Category);
+            editContext = new(Model);
         }
 
         // Declaring a private asynchronous method 'OnBeforeInternalNavigation' with a parameter of type LocationChangingContext
