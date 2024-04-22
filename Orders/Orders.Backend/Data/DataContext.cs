@@ -15,7 +15,6 @@ namespace Orders.Backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Country>().HasIndex(x => x.Name).IsUnique();
