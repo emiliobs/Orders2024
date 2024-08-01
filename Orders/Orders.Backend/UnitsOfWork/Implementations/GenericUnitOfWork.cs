@@ -13,14 +13,14 @@ namespace Orders.Backend.UnitsOfWork.Implementations
             this._repository = repository;
         }
 
-        public Task<ActionsResponse<T>> AddAsync(T entity) => _repository.AddAsync(entity);
+        public virtual async Task<ActionsResponse<T>> AddAsync(T entity) => await _repository.AddAsync(entity);
 
-        public Task<ActionsResponse<T>> DeleteAsync(int id) => _repository.DeleteAsync(id);
+        public virtual async Task<ActionsResponse<T>> DeleteAsync(int id) => await _repository.DeleteAsync(id);
 
-        public async Task<ActionsResponse<T>> GetAsync(int id) => await _repository.GetAsync(id);
+        public virtual async Task<ActionsResponse<T>> GetAsync(int id) => await _repository.GetAsync(id);
 
-        public async Task<ActionsResponse<IEnumerable<T>>> GetAsync() => await _repository.GetAsync();
+        public virtual async Task<ActionsResponse<IEnumerable<T>>> GetAsync() => await _repository.GetAsync();
 
-        public async Task<ActionsResponse<T>> UpdateAsync(T entity) => await _repository.UpdateAsync(entity);
+        public virtual async Task<ActionsResponse<T>> UpdateAsync(T entity) => await _repository.UpdateAsync(entity);
     }
 }
