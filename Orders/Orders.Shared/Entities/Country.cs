@@ -13,7 +13,7 @@ namespace Orders.Shared.Entities
         public string Name { get; set; } = null!;
 
         //RelationOneToMane
-        public ICollection<State> States { get; set; }
+        public ICollection<State>? States { get; set; }
 
         [Display(Name = "Departaentos / Estados")]
         public int StateNumber => States == null || States.Count == 0 ? 0 : States.Count;
