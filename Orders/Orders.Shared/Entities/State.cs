@@ -16,7 +16,7 @@ namespace Orders.Shared.Entities
         public int CountryId { get; set; }
         public Country? Country { get; set; }
 
-        public ICollection<City> Cities { get; set; }
+        public ICollection<City>? Cities { get; set; }
 
         [Display(Name = "Ciudades")]
         public int CityNumber => Cities == null || Cities.Count == 0 ? 0 : Cities.Count;
